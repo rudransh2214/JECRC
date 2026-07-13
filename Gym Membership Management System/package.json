@@ -1,0 +1,23 @@
+{
+  "name": "fitzone-gym-management",
+  "version": "1.0.0",
+  "description": "Complete Gym Membership Management System Frontend",
+  "main": "index.html",
+  "scripts": {
+    "start": "echo 'Open index.html in your browser to view the project'",
+    "dev": "echo 'Open index.html in your browser to view the project'"
+  },
+  "keywords": [
+    "gym",
+    "fitness",
+    "management",
+    "frontend",
+    "html",
+    "css",
+    "javascript"
+  ],
+  "author": "FitZone Team",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}

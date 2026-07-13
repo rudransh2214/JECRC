@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trainers - FitZone Gym</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>FitZone</span>
+                </div>
+            </div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="members.html"><i class="fas fa-users"></i> Members</a></li>
+                    <li><a href="trainers.html" class="active"><i class="fas fa-user-tie"></i> Trainers</a></li>
+                    <li><a href="membership.html"><i class="fas fa-crown"></i> Membership</a></li>
+                    <li><a href="classes.html"><i class="fas fa-calendar"></i> Classes</a></li>
+                    <li><a href="attendance.html"><i class="fas fa-clipboard-check"></i> Attendance</a></li>
+                    <li><a href="workout.html"><i class="fas fa-dumbbell"></i> Workout</a></li>
+                    <li><a href="nutrition.html"><i class="fas fa-apple-alt"></i> Nutrition</a></li>
+                    <li><a href="progress.html"><i class="fas fa-chart-line"></i> Progress</a></li>
+                    <li><a href="payment.html"><i class="fas fa-credit-card"></i> Payment</a></li>
+                    <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">AD</div>
+                    <div class="user-details">
+                        <h4 id="userName">Admin</h4>
+                        <p id="userType">Administrator</p>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-header">
+                <h1>Trainer Management</h1>
+                <div class="header-actions">
+                    <button class="notification-btn" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </button>
+                    <button class="notification-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="dashboard-cards">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Total Trainers</h3>
+                        <div class="card-icon"><i class="fas fa-user-tie"></i></div>
+                    </div>
+                    <div class="card-value" id="totalTrainers">0</div>
+                    <div class="card-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+2 this month</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Available Now</h3>
+                        <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+                    </div>
+                    <div class="card-value" id="availableTrainers">0</div>
+                    <div class="card-change positive">
+                        <i class="fas fa-clock"></i>
+                        <span>Ready for sessions</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Avg Rating</h3>
+                        <div class="card-icon"><i class="fas fa-star"></i></div>
+                    </div>
+                    <div class="card-value" id="avgRating">0</div>
+                    <div class="card-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>Excellent feedback</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Total Sessions</h3>
+                        <div class="card-icon"><i class="fas fa-calendar-check"></i></div>
+                    </div>
+                    <div class="card-value" id="totalSessions">0</div>
+                    <div class="card-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>This month</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trainers Grid -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">All Trainers</h3>
+                    <div class="table-actions">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Search trainers..." onkeyup="searchTrainers()">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <select id="filterSpecialty" onchange="filterTrainers()" style="padding: 10px 15px; border: 1px solid var(--border-color); border-radius: 20px; background: var(--glass-bg); color: var(--text-light);">
+                            <option value="">All Specialties</option>
+                            <option value="Strength">Strength Training</option>
+                            <option value="Yoga">Yoga & Pilates</option>
+                            <option value="CrossFit">CrossFit & HIIT</option>
+                            <option value="Nutrition">Nutrition</option>
+                            <option value="Cardio">Cardio</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="openAddTrainerModal()">
+                            <i class="fas fa-plus"></i> Add Trainer
+                        </button>
+                    </div>
+                </div>
+                <div class="trainers-grid" id="trainersGrid">
+                    <!-- Trainers will be loaded dynamically -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Trainer Modal -->
+    <div class="modal" id="trainerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New Trainer</h3>
+                <button class="modal-close" onclick="closeTrainerModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="trainerForm" onsubmit="saveTrainer(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="trainerName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="trainerEmail" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <div class="input-group">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="trainerPhone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Specialty</label>
+                    <div class="input-group">
+                        <i class="fas fa-dumbbell"></i>
+                        <select id="trainerSpecialty" required>
+                            <option value="Strength Training">Strength Training</option>
+                            <option value="Yoga & Pilates">Yoga & Pilates</option>
+                            <option value="CrossFit & HIIT">CrossFit & HIIT</option>
+                            <option value="Nutrition">Nutrition</option>
+                            <option value="Cardio">Cardio</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Experience (years)</label>
+                    <div class="input-group">
+                        <i class="fas fa-clock"></i>
+                        <input type="number" id="trainerExperience" min="1" max="30" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Assigned Members</label>
+                    <div class="input-group">
+                        <i class="fas fa-users"></i>
+                        <input type="number" id="trainerMembers" min="0" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Save Trainer</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loader">
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+        </div>
+        <p>Loading...</p>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/trainers.js"></script>
+</body>
+</html>

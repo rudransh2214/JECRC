@@ -1,0 +1,476 @@
+/* ============================================
+   FITZONE GYM - RESPONSIVE STYLES
+   ============================================ */
+
+/* Extra Large Devices (1200px and up) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+    }
+}
+
+/* Large Devices (992px to 1199px) */
+@media (max-width: 1199px) {
+    .container {
+        max-width: 960px;
+    }
+    
+    .hero h1 {
+        font-size: 52px;
+    }
+    
+    .section-header h2 {
+        font-size: 36px;
+    }
+}
+
+/* Medium Devices (768px to 991px) */
+@media (max-width: 991px) {
+    .container {
+        max-width: 720px;
+    }
+    
+    .hero h1 {
+        font-size: 42px;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .about-content,
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-image {
+        height: 300px;
+    }
+    
+    .plans-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    .trainers-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .auth-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .auth-image {
+        display: none;
+    }
+    
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .dashboard-cards {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+/* Small Devices (576px to 767px) */
+@media (max-width: 767px) {
+    .container {
+        max-width: 540px;
+    }
+    
+    .navbar {
+        padding: 15px 0;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: var(--bg-dark);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .nav-buttons {
+        display: none;
+    }
+    
+    .hamburger {
+        display: flex;
+    }
+    
+    .hero {
+        height: auto;
+        padding: 100px 0;
+    }
+    
+    .hero h1 {
+        font-size: 36px;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .section-header h2 {
+        font-size: 28px;
+    }
+    
+    .section-header p {
+        font-size: 16px;
+    }
+    
+    .features-grid,
+    .plans-grid,
+    .trainers-grid,
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-content,
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-image {
+        height: 250px;
+    }
+    
+    .contact-info {
+        margin-bottom: 30px;
+    }
+    
+    .contact-form {
+        padding: 25px;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .table-container {
+        overflow-x: auto;
+    }
+    
+    .workout-plans,
+    .meal-plans,
+    .payment-methods,
+    .workout-categories {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .chart-actions {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .chart-btn {
+        flex: 1;
+    }
+}
+
+/* Extra Small Devices (575px and down) */
+@media (max-width: 575px) {
+    .container {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+    
+    .hero h1 {
+        font-size: 28px;
+    }
+    
+    .hero p {
+        font-size: 16px;
+    }
+    
+    .section-header h2 {
+        font-size: 24px;
+    }
+    
+    .feature-card,
+    .plan-card,
+    .trainer-card,
+    .testimonial-card,
+    .card {
+        padding: 20px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    
+    .btn-lg {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+    
+    .auth-form-container {
+        padding: 30px 20px;
+    }
+    
+    .modal-content {
+        padding: 25px 20px;
+        margin: 20px;
+    }
+    
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .table-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .table-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .search-box input {
+        min-width: 100%;
+    }
+    
+    .social-login {
+        grid-template-columns: 1fr;
+    }
+    
+    .notification-settings {
+        gap: 15px;
+    }
+    
+    .setting-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+/* Landscape Orientation for Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        padding: 50px 0;
+    }
+    
+    .hero h1 {
+        font-size: 24px;
+    }
+    
+    .section-header {
+        margin-bottom: 30px;
+    }
+    
+    .section-header h2 {
+        font-size: 20px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .footer,
+    .hamburger,
+    .notification-btn,
+    .theme-toggle,
+    .sidebar,
+    .btn,
+    .loading-screen {
+        display: none !important;
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .card,
+    .table-container,
+    .chart-container {
+        background: white;
+        border: 1px solid #ccc;
+        box-shadow: none;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-color: #ff0000;
+        --text-dark: #000000;
+        --text-light: #ffffff;
+        --border-color: #ffffff;
+    }
+    
+    .card,
+    .feature-card,
+    .plan-card {
+        border: 2px solid var(--text-light);
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    /* Already using dark theme by default */
+}
+
+/* Light Mode Support */
+@media (prefers-color-scheme: light) {
+    /* Can be used to implement automatic light mode */
+}
+
+/* Touch Devices */
+@media (hover: none) and (pointer: coarse) {
+    .feature-card:hover,
+    .plan-card:hover,
+    .trainer-card:hover,
+    .card:hover {
+        transform: none;
+    }
+    
+    .trainer-overlay {
+        opacity: 1;
+        background: rgba(230, 57, 70, 0.7);
+    }
+    
+    .notification-btn:hover,
+    .theme-toggle:hover,
+    .btn:hover {
+        transform: none;
+    }
+}
+
+/* Large Text Support */
+@media (max-resolution: 1dppx) {
+    body {
+        font-size: 18px;
+    }
+}
+
+/* Portrait Tablets */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    .plans-grid,
+    .trainers-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .dashboard-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Landscape Tablets */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .hero h1 {
+        font-size: 48px;
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* 4K Displays */
+@media (min-width: 2560px) {
+    .container {
+        max-width: 1600px;
+    }
+    
+    .hero h1 {
+        font-size: 72px;
+    }
+    
+    .section-header h2 {
+        font-size: 48px;
+    }
+    
+    .features-grid,
+    .plans-grid,
+    .trainers-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .dashboard-cards {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Ultra-wide Displays */
+@media (min-width: 3840px) {
+    .container {
+        max-width: 2400px;
+    }
+}

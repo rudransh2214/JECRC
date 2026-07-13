@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership - FitZone Gym</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>FitZone</span>
+                </div>
+            </div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="members.html"><i class="fas fa-users"></i> Members</a></li>
+                    <li><a href="trainers.html"><i class="fas fa-user-tie"></i> Trainers</a></li>
+                    <li><a href="membership.html" class="active"><i class="fas fa-crown"></i> Membership</a></li>
+                    <li><a href="classes.html"><i class="fas fa-calendar"></i> Classes</a></li>
+                    <li><a href="attendance.html"><i class="fas fa-clipboard-check"></i> Attendance</a></li>
+                    <li><a href="workout.html"><i class="fas fa-dumbbell"></i> Workout</a></li>
+                    <li><a href="nutrition.html"><i class="fas fa-apple-alt"></i> Nutrition</a></li>
+                    <li><a href="progress.html"><i class="fas fa-chart-line"></i> Progress</a></li>
+                    <li><a href="payment.html"><i class="fas fa-credit-card"></i> Payment</a></li>
+                    <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <div class="user-details">
+                        <h4 id="userName">John Doe</h4>
+                        <p id="userType">Member</p>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-header">
+                <h1>Membership Plans</h1>
+                <div class="header-actions">
+                    <button class="notification-btn" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">2</span>
+                    </button>
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </button>
+                    <button class="notification-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Current Membership -->
+            <div class="card" style="margin-bottom: 30px;">
+                <div class="card-header">
+                    <h3 class="card-title">Current Membership</h3>
+                    <div class="card-icon"><i class="fas fa-crown"></i></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                    <div>
+                        <h2 style="font-size: 28px; color: var(--text-light); margin-bottom: 10px;">Premium Plan</h2>
+                        <p style="color: var(--text-gray);">Valid until: <span style="color: var(--primary-color);">December 31, 2024</span></p>
+                        <p style="color: var(--text-gray);">Monthly payment: <span style="color: var(--primary-color);">$79.00</span></p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="display: inline-block; padding: 10px 20px; background: rgba(46, 204, 113, 0.2); border-radius: 20px; color: #2ecc71; font-weight: 600; margin-bottom: 10px;">
+                            <i class="fas fa-check-circle"></i> Active
+                        </div>
+                        <br>
+                        <button class="btn btn-outline" onclick="openUpgradeModal()">Upgrade Plan</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Membership Plans -->
+            <div class="section-header">
+                <h2>Available Plans</h2>
+                <p>Choose the perfect plan for your fitness goals</p>
+            </div>
+            <div class="plans-grid" style="margin-bottom: 40px;">
+                <div class="plan-card basic">
+                    <div class="plan-header">
+                        <h3>Basic</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">29</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Gym Access (6AM - 10PM)</li>
+                        <li><i class="fas fa-check"></i> Basic Equipment</li>
+                        <li><i class="fas fa-check"></i> Locker Room Access</li>
+                        <li><i class="fas fa-check"></i> 2 Group Classes/Week</li>
+                        <li><i class="fas fa-times"></i> Personal Training</li>
+                        <li><i class="fas fa-times"></i> Sauna Access</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="selectPlan('Basic')">Choose Plan</button>
+                </div>
+                <div class="plan-card standard">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="plan-header">
+                        <h3>Standard</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">49</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> 24/7 Gym Access</li>
+                        <li><i class="fas fa-check"></i> All Equipment</li>
+                        <li><i class="fas fa-check"></i> Locker & Shower Access</li>
+                        <li><i class="fas fa-check"></i> Unlimited Group Classes</li>
+                        <li><i class="fas fa-check"></i> 1 PT Session/Month</li>
+                        <li><i class="fas fa-times"></i> Sauna Access</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="selectPlan('Standard')">Choose Plan</button>
+                </div>
+                <div class="plan-card premium">
+                    <div class="plan-header">
+                        <h3>Premium</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">79</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> 24/7 Gym Access</li>
+                        <li><i class="fas fa-check"></i> All Equipment + VIP Area</li>
+                        <li><i class="fas fa-check"></i> Premium Locker Room</li>
+                        <li><i class="fas fa-check"></i> Unlimited Group Classes</li>
+                        <li><i class="fas fa-check"></i> 4 PT Sessions/Month</li>
+                        <li><i class="fas fa-check"></i> Sauna & Spa Access</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="selectPlan('Premium')">Current Plan</button>
+                </div>
+                <div class="plan-card elite">
+                    <div class="elite-badge">Best Value</div>
+                    <div class="plan-header">
+                        <h3>Elite</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">149</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> 24/7 VIP Access</li>
+                        <li><i class="fas fa-check"></i> All Equipment + Private Area</li>
+                        <li><i class="fas fa-check"></i> Private Locker & Shower</li>
+                        <li><i class="fas fa-check"></i> Unlimited Group Classes</li>
+                        <li><i class="fas fa-check"></i> Unlimited PT Sessions</li>
+                        <li><i class="fas fa-check"></i> Full Spa & Nutrition Plan</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="selectPlan('Elite')">Choose Plan</button>
+                </div>
+            </div>
+
+            <!-- Membership History -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Payment History</h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Plan</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Invoice</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentHistory">
+                        <!-- Payment history will be loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Upgrade Modal -->
+    <div class="modal" id="upgradeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Upgrade Your Plan</h3>
+                <button class="modal-close" onclick="closeUpgradeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="upgradeContent">
+                <!-- Content will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loader">
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+        </div>
+        <p>Loading...</p>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script>
+        // Payment history data
+        const paymentHistory = [
+            { date: '2024-01-15', plan: 'Premium', amount: '$79.00', status: 'Paid' },
+            { date: '2023-12-15', plan: 'Premium', amount: '$79.00', status: 'Paid' },
+            { date: '2023-11-15', plan: 'Standard', amount: '$49.00', status: 'Paid' },
+            { date: '2023-10-15', plan: 'Standard', amount: '$49.00', status: 'Paid' },
+            { date: '2023-09-15', plan: 'Basic', amount: '$29.00', status: 'Paid' }
+        ];
+
+        // Load payment history
+        function loadPaymentHistory() {
+            const tbody = document.getElementById('paymentHistory');
+            let html = '';
+            
+            paymentHistory.forEach(payment => {
+                const statusClass = payment.status === 'Paid' ? 'active' : 'inactive';
+                html += `
+                    <tr>
+                        <td>${payment.date}</td>
+                        <td>${payment.plan}</td>
+                        <td>${payment.amount}</td>
+                        <td><span class="status-badge ${statusClass}">${payment.status}</span></td>
+                        <td><button class="btn btn-outline btn-sm"><i class="fas fa-download"></i></button></td>
+                    </tr>
+                `;
+            });
+            
+            tbody.innerHTML = html;
+        }
+
+        // Select plan
+        function selectPlan(plan) {
+            if (plan === 'Premium') {
+                showNotification('This is your current plan', 'success');
+                return;
+            }
+            
+            const content = document.getElementById('upgradeContent');
+            content.innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <i class="fas fa-crown" style="font-size: 48px; color: var(--primary-color); margin-bottom: 15px;"></i>
+                    <h4 style="color: var(--text-dark); margin-bottom: 10px;">Upgrade to ${plan} Plan</h4>
+                    <p style="color: var(--text-gray);">You are about to upgrade your membership to the ${plan} plan.</p>
+                </div>
+                <div style="background: var(--bg-gray); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <p style="color: var(--text-dark);"><strong>New Monthly Payment:</strong> <span style="color: var(--primary-color);">$${plan === 'Basic' ? '29' : plan === 'Standard' ? '49' : '149'}.00</span></p>
+                    <p style="color: var(--text-gray); font-size: 14px;">The change will take effect immediately</p>
+                </div>
+                <button class="btn btn-primary btn-block" onclick="confirmUpgrade('${plan}')">Confirm Upgrade</button>
+            `;
+            
+            document.getElementById('upgradeModal').classList.add('active');
+        }
+
+        // Open upgrade modal
+        function openUpgradeModal() {
+            selectPlan('Elite');
+        }
+
+        // Close upgrade modal
+        function closeUpgradeModal() {
+            document.getElementById('upgradeModal').classList.remove('active');
+        }
+
+        // Confirm upgrade
+        function confirmUpgrade(plan) {
+            closeUpgradeModal();
+            showNotification(`Successfully upgraded to ${plan} plan!`, 'success');
+            // In real app, this would make an API call
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPaymentHistory();
+        });
+    </script>
+</body>
+</html>

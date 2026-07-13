@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance - FitZone Gym</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>FitZone</span>
+                </div>
+            </div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="members.html"><i class="fas fa-users"></i> Members</a></li>
+                    <li><a href="trainers.html"><i class="fas fa-user-tie"></i> Trainers</a></li>
+                    <li><a href="membership.html"><i class="fas fa-crown"></i> Membership</a></li>
+                    <li><a href="classes.html"><i class="fas fa-calendar"></i> Classes</a></li>
+                    <li><a href="attendance.html" class="active"><i class="fas fa-clipboard-check"></i> Attendance</a></li>
+                    <li><a href="workout.html"><i class="fas fa-dumbbell"></i> Workout</a></li>
+                    <li><a href="nutrition.html"><i class="fas fa-apple-alt"></i> Nutrition</a></li>
+                    <li><a href="progress.html"><i class="fas fa-chart-line"></i> Progress</a></li>
+                    <li><a href="payment.html"><i class="fas fa-credit-card"></i> Payment</a></li>
+                    <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <div class="user-details">
+                        <h4 id="userName">John Doe</h4>
+                        <p id="userType">Member</p>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-header">
+                <h1>Attendance Tracking</h1>
+                <div class="header-actions">
+                    <button class="notification-btn" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">2</span>
+                    </button>
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </button>
+                    <button class="notification-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Check-in -->
+            <div class="card" style="margin-bottom: 30px; text-align: center;">
+                <div class="card-header" style="justify-content: center;">
+                    <h3 class="card-title">Quick Check-in</h3>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <i class="fas fa-qrcode" style="font-size: 64px; color: var(--primary-color);"></i>
+                </div>
+                <p style="color: var(--text-gray); margin-bottom: 20px;">Scan your QR code or enter your member ID to check in</p>
+                <div style="display: flex; gap: 10px; justify-content: center; max-width: 400px; margin: 0 auto;">
+                    <input type="text" placeholder="Enter Member ID" style="flex: 1; padding: 15px; border: 2px solid var(--border-color); border-radius: 10px; background: var(--glass-bg); color: var(--text-light);">
+                    <button class="btn btn-primary" onclick="checkIn()">Check In</button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="dashboard-cards">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Today's Check-ins</h3>
+                        <div class="card-icon"><i class="fas fa-user-check"></i></div>
+                    </div>
+                    <div class="card-value" id="todayCheckins">0</div>
+                    <div class="card-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+15% from yesterday</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">This Week</h3>
+                        <div class="card-icon"><i class="fas fa-calendar-week"></i></div>
+                    </div>
+                    <div class="card-value" id="weekCheckins">0</div>
+                    <div class="card-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+8% from last week</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Your Attendance</h3>
+                        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                    </div>
+                    <div class="card-value" id="yourAttendance">0%</div>
+                    <div class="card-change positive">
+                        <i class="fas fa-trophy"></i>
+                        <span>Excellent!</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Current Streak</h3>
+                        <div class="card-icon"><i class="fas fa-fire"></i></div>
+                    </div>
+                    <div class="card-value" id="currentStreak">0</div>
+                    <div class="card-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>Keep it up!</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attendance History -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Your Attendance History</h3>
+                    <div class="table-actions">
+                        <select id="monthFilter" onchange="filterAttendance()" style="padding: 10px 15px; border: 1px solid var(--border-color); border-radius: 20px; background: var(--glass-bg); color: var(--text-light);">
+                            <option value="">All Time</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Check-in Time</th>
+                            <th>Check-out Time</th>
+                            <th>Duration</th>
+                            <th>Workout Type</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendanceTable">
+                        <!-- Attendance data will be loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Monthly Progress -->
+            <div class="chart-container" style="margin-top: 30px;">
+                <div class="chart-header">
+                    <h3 class="chart-title">Monthly Attendance Progress</h3>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <div style="margin-bottom: 15px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span style="color: var(--text-light);">Monthly Goal</span>
+                                <span style="color: var(--primary-color);">20 days</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%;"></div>
+                            </div>
+                            <span style="color: var(--text-gray); font-size: 14px;">15/20 days completed</span>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span style="color: var(--text-light);">Weekly Average</span>
+                                <span style="color: var(--primary-color);">4.5 days</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 90%;"></div>
+                            </div>
+                            <span style="color: var(--text-gray); font-size: 14px;">Above target (4 days)</span>
+                        </div>
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <canvas id="attendanceChart" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loader">
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+        </div>
+        <p>Loading...</p>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/attendance.js"></script>
+</body>
+</html>

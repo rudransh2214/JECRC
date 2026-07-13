@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - FitZone Gym</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>FitZone</span>
+                </div>
+            </div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="members.html"><i class="fas fa-users"></i> Members</a></li>
+                    <li><a href="trainers.html"><i class="fas fa-user-tie"></i> Trainers</a></li>
+                    <li><a href="membership.html"><i class="fas fa-crown"></i> Membership</a></li>
+                    <li><a href="classes.html"><i class="fas fa-calendar"></i> Classes</a></li>
+                    <li><a href="attendance.html"><i class="fas fa-clipboard-check"></i> Attendance</a></li>
+                    <li><a href="workout.html"><i class="fas fa-dumbbell"></i> Workout</a></li>
+                    <li><a href="nutrition.html"><i class="fas fa-apple-alt"></i> Nutrition</a></li>
+                    <li><a href="progress.html"><i class="fas fa-chart-line"></i> Progress</a></li>
+                    <li><a href="payment.html" class="active"><i class="fas fa-credit-card"></i> Payment</a></li>
+                    <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <div class="user-details">
+                        <h4 id="userName">John Doe</h4>
+                        <p id="userType">Member</p>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-header">
+                <h1>Payment & Billing</h1>
+                <div class="header-actions">
+                    <button class="notification-btn" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">1</span>
+                    </button>
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </button>
+                    <button class="notification-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Current Bill -->
+            <div class="card" style="margin-bottom: 30px;">
+                <div class="card-header">
+                    <h3 class="card-title">Current Bill</h3>
+                    <div class="card-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                    <div>
+                        <h2 style="font-size: 36px; color: var(--text-light); margin-bottom: 10px;">$79.00</h2>
+                        <p style="color: var(--text-gray);">Premium Membership - January 2024</p>
+                        <p style="color: var(--text-gray);">Due: <span style="color: var(--primary-color);">January 31, 2024</span></p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openPaymentModal()">Pay Now</button>
+                </div>
+            </div>
+
+            <!-- Payment Methods -->
+            <div class="section-header">
+                <h2>Payment Methods</h2>
+                <p>Manage your payment options</p>
+            </div>
+            <div class="payment-methods" id="paymentMethods">
+                <!-- Payment methods will be loaded dynamically -->
+            </div>
+
+            <!-- Payment History -->
+            <div class="table-container" style="margin-top: 30px;">
+                <div class="table-header">
+                    <h3 class="table-title">Payment History</h3>
+                    <div class="table-actions">
+                        <select id="yearFilter" onchange="filterPayments()" style="padding: 10px 15px; border: 1px solid var(--border-color); border-radius: 20px; background: var(--glass-bg); color: var(--text-light);">
+                            <option value="">All Years</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                        </select>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Status</th>
+                            <th>Invoice</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentHistory">
+                        <!-- Payment history will be loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Make Payment</h3>
+                <button class="modal-close" onclick="closePaymentModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="paymentContent">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <i class="fas fa-credit-card" style="font-size: 48px; color: var(--primary-color); margin-bottom: 15px;"></i>
+                    <h4 style="color: var(--text-dark); margin-bottom: 10px;">Premium Membership</h4>
+                    <p style="color: var(--text-gray);">January 2024</p>
+                    <h2 style="color: var(--primary-color); font-size: 36px; margin: 15px 0;">$79.00</h2>
+                </div>
+                <form onsubmit="processPayment(event)">
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <div class="input-group">
+                            <i class="fas fa-credit-card"></i>
+                            <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Expiry Date</label>
+                            <div class="input-group">
+                                <i class="fas fa-calendar"></i>
+                                <input type="text" placeholder="MM/YY" maxlength="5" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>CVV</label>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="text" placeholder="123" maxlength="3" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Cardholder Name</label>
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" placeholder="John Doe" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Pay $79.00</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content" style="text-align: center;">
+            <div style="margin-bottom: 20px;">
+                <i class="fas fa-check-circle" style="font-size: 64px; color: #2ecc71;"></i>
+            </div>
+            <h3 style="color: var(--text-dark); margin-bottom: 10px;">Payment Successful!</h3>
+            <p style="color: var(--text-gray); margin-bottom: 20px;">Your payment of $79.00 has been processed successfully.</p>
+            <button class="btn btn-primary" onclick="closeSuccessModal()">Done</button>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loader">
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+        </div>
+        <p>Loading...</p>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/payment.js"></script>
+</body>
+</html>

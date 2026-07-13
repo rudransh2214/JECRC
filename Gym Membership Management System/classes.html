@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes - FitZone Gym</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>FitZone</span>
+                </div>
+            </div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="members.html"><i class="fas fa-users"></i> Members</a></li>
+                    <li><a href="trainers.html"><i class="fas fa-user-tie"></i> Trainers</a></li>
+                    <li><a href="membership.html"><i class="fas fa-crown"></i> Membership</a></li>
+                    <li><a href="classes.html" class="active"><i class="fas fa-calendar"></i> Classes</a></li>
+                    <li><a href="attendance.html"><i class="fas fa-clipboard-check"></i> Attendance</a></li>
+                    <li><a href="workout.html"><i class="fas fa-dumbbell"></i> Workout</a></li>
+                    <li><a href="nutrition.html"><i class="fas fa-apple-alt"></i> Nutrition</a></li>
+                    <li><a href="progress.html"><i class="fas fa-chart-line"></i> Progress</a></li>
+                    <li><a href="payment.html"><i class="fas fa-credit-card"></i> Payment</a></li>
+                    <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <div class="user-details">
+                        <h4 id="userName">John Doe</h4>
+                        <p id="userType">Member</p>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-header">
+                <h1>Class Schedule</h1>
+                <div class="header-actions">
+                    <button class="notification-btn" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">4</span>
+                    </button>
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </button>
+                    <button class="notification-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Week Selector -->
+            <div class="card" style="margin-bottom: 30px;">
+                <div class="card-header">
+                    <h3 class="card-title">Select Week</h3>
+                </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="selectDay('all')">All Days</button>
+                    <button class="btn btn-outline" onclick="selectDay('monday')">Monday</button>
+                    <button class="btn btn-outline" onclick="selectDay('tuesday')">Tuesday</button>
+                    <button class="btn btn-outline" onclick="selectDay('wednesday')">Wednesday</button>
+                    <button class="btn btn-outline" onclick="selectDay('thursday')">Thursday</button>
+                    <button class="btn btn-outline" onclick="selectDay('friday')">Friday</button>
+                    <button class="btn btn-outline" onclick="selectDay('saturday')">Saturday</button>
+                    <button class="btn btn-outline" onclick="selectDay('sunday')">Sunday</button>
+                </div>
+            </div>
+
+            <!-- Classes Grid -->
+            <div class="classes-container" id="classesContainer">
+                <!-- Classes will be loaded dynamically -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Book Class Modal -->
+    <div class="modal" id="bookModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Book Class</h3>
+                <button class="modal-close" onclick="closeBookModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="bookContent">
+                <!-- Content will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loader">
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+        </div>
+        <p>Loading...</p>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script>
+        // Class data
+        const classesData = [
+            { id: 1, name: 'Morning Yoga', trainer: 'Sarah Williams', day: 'monday', time: '6:00 AM', duration: '1 hour', capacity: 20, enrolled: 15, image: 'yoga', intensity: 'Low' },
+            { id: 2, name: 'HIIT Training', trainer: 'David Chen', day: 'monday', time: '8:00 AM', duration: '45 min', capacity: 15, enrolled: 15, image: 'hiit', intensity: 'High' },
+            { id: 3, name: 'Strength Training', trainer: 'Mike Johnson', day: 'monday', time: '10:00 AM', duration: '1 hour', capacity: 12, enrolled: 8, image: 'strength', intensity: 'Medium' },
+            { id: 4, name: 'Spin Class', trainer: 'Emily Rodriguez', day: 'monday', time: '12:00 PM', duration: '45 min', capacity: 25, enrolled: 20, image: 'spin', intensity: 'High' },
+            { id: 5, name: 'Evening Yoga', trainer: 'Sarah Williams', day: 'monday', time: '6:00 PM', duration: '1 hour', capacity: 20, enrolled: 12, image: 'yoga', intensity: 'Low' },
+            { id: 6, name: 'CrossFit', trainer: 'David Chen', day: 'tuesday', time: '7:00 AM', duration: '1 hour', capacity: 15, enrolled: 10, image: 'crossfit', intensity: 'High' },
+            { id: 7, name: 'Pilates', trainer: 'Sarah Williams', day: 'tuesday', time: '9:00 AM', duration: '1 hour', capacity: 18, enrolled: 14, image: 'pilates', intensity: 'Medium' },
+            { id: 8, name: 'Boxing', trainer: 'Mike Johnson', day: 'tuesday', time: '11:00 AM', duration: '1 hour', capacity: 12, enrolled: 9, image: 'boxing', intensity: 'High' },
+            { id: 9, name: 'Zumba', trainer: 'Emily Rodriguez', day: 'tuesday', time: '5:00 PM', duration: '1 hour', capacity: 30, enrolled: 25, image: 'zumba', intensity: 'Medium' },
+            { id: 10, name: 'Core Training', trainer: 'Mike Johnson', day: 'wednesday', time: '8:00 AM', duration: '45 min', capacity: 15, enrolled: 11, image: 'core', intensity: 'Medium' },
+            { id: 11, name: 'Power Yoga', trainer: 'Sarah Williams', day: 'wednesday', time: '10:00 AM', duration: '1 hour', capacity: 20, enrolled: 16, image: 'yoga', intensity: 'Medium' },
+            { id: 12, name: 'Circuit Training', trainer: 'David Chen', day: 'wednesday', time: '12:00 PM', duration: '1 hour', capacity: 15, enrolled: 12, image: 'circuit', intensity: 'High' },
+            { id: 13, name: 'Stretching', trainer: 'Emily Rodriguez', day: 'wednesday', time: '6:00 PM', duration: '45 min', capacity: 25, enrolled: 18, image: 'stretching', intensity: 'Low' },
+            { id: 14, name: 'Boot Camp', trainer: 'Mike Johnson', day: 'thursday', time: '7:00 AM', duration: '1 hour', capacity: 20, enrolled: 18, image: 'bootcamp', intensity: 'High' },
+            { id: 15, name: 'Meditation', trainer: 'Sarah Williams', day: 'thursday', time: '9:00 AM', duration: '45 min', capacity: 30, enrolled: 22, image: 'meditation', intensity: 'Low' },
+            { id: 16, name: 'TRX Training', trainer: 'David Chen', day: 'thursday', time: '11:00 AM', duration: '1 hour', capacity: 12, enrolled: 8, image: 'trx', intensity: 'High' },
+            { id: 17, name: 'Dance Fitness', trainer: 'Emily Rodriguez', day: 'thursday', time: '5:00 PM', duration: '1 hour', capacity: 25, enrolled: 20, image: 'dance', intensity: 'Medium' },
+            { id: 18, name: 'Kettlebell', trainer: 'Mike Johnson', day: 'friday', time: '8:00 AM', duration: '1 hour', capacity: 15, enrolled: 12, image: 'kettlebell', intensity: 'High' },
+            { id: 19, name: 'Aerial Yoga', trainer: 'Sarah Williams', day: 'friday', time: '10:00 AM', duration: '1 hour', capacity: 10, enrolled: 7, image: 'aerial', intensity: 'Medium' },
+            { id: 20, name: 'Kickboxing', trainer: 'David Chen', day: 'friday', time: '12:00 PM', duration: '1 hour', capacity: 15, enrolled: 13, image: 'kickboxing', intensity: 'High' },
+            { id: 21, name: 'Weekend Warrior', trainer: 'Mike Johnson', day: 'saturday', time: '9:00 AM', duration: '2 hours', capacity: 25, enrolled: 20, image: 'warrior', intensity: 'High' },
+            { id: 22, name: 'Family Yoga', trainer: 'Sarah Williams', day: 'saturday', time: '11:00 AM', duration: '1 hour', capacity: 30, enrolled: 25, image: 'yoga', intensity: 'Low' },
+            { id: 23, name: 'Sunday Flow', trainer: 'Emily Rodriguez', day: 'sunday', time: '10:00 AM', duration: '1 hour', capacity: 20, enrolled: 15, image: 'yoga', intensity: 'Low' },
+            { id: 24, name: 'Recovery Session', trainer: 'Sarah Williams', day: 'sunday', time: '2:00 PM', duration: '1 hour', capacity: 15, enrolled: 10, image: 'recovery', intensity: 'Low' }
+        ];
+
+        let selectedDay = 'all';
+
+        // Load classes
+        function loadClasses() {
+            const container = document.getElementById('classesContainer');
+            const filteredClasses = selectedDay === 'all' 
+                ? classesData 
+                : classesData.filter(c => c.day === selectedDay);
+            
+            let html = '';
+            
+            filteredClasses.forEach(cls => {
+                const isFull = cls.enrolled >= cls.capacity;
+                const intensityColor = cls.intensity === 'High' ? '#e74c3c' : cls.intensity === 'Medium' ? '#f39c12' : '#2ecc71';
+                const spotsLeft = cls.capacity - cls.enrolled;
+                
+                html += `
+                    <div class="class-card">
+                        <div class="class-image" style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400') center/cover;">
+                            <div class="class-badge">${cls.day.charAt(0).toUpperCase() + cls.day.slice(1)}</div>
+                            <div class="class-intensity" style="background: ${intensityColor};">${cls.intensity}</div>
+                        </div>
+                        <div class="class-info">
+                            <h3>${cls.name}</h3>
+                            <p class="class-trainer"><i class="fas fa-user-tie"></i> ${cls.trainer}</p>
+                            <div class="class-details">
+                                <span><i class="fas fa-clock"></i> ${cls.time}</span>
+                                <span><i class="fas fa-hourglass-half"></i> ${cls.duration}</span>
+                            </div>
+                            <div class="class-capacity">
+                                <div class="capacity-bar">
+                                    <div class="capacity-fill" style="width: ${(cls.enrolled / cls.capacity) * 100}%;"></div>
+                                </div>
+                                <span>${cls.enrolled}/${cls.capacity} enrolled</span>
+                            </div>
+                            <button class="btn ${isFull ? 'btn-outline' : 'btn-primary'} btn-block" 
+                                    onclick="bookClass(${cls.id})" 
+                                    ${isFull ? 'disabled' : ''}>
+                                ${isFull ? 'Class Full' : 'Book Now'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Select day
+        function selectDay(day) {
+            selectedDay = day;
+            
+            // Update button styles
+            document.querySelectorAll('.card .btn').forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(day === 'all' ? 'all' : day)) {
+                    btn.classList.remove('btn-outline');
+                    btn.classList.add('btn-primary');
+                } else if (btn.textContent.toLowerCase().includes('monday') || 
+                           btn.textContent.toLowerCase().includes('tuesday') ||
+                           btn.textContent.toLowerCase().includes('wednesday') ||
+                           btn.textContent.toLowerCase().includes('thursday') ||
+                           btn.textContent.toLowerCase().includes('friday') ||
+                           btn.textContent.toLowerCase().includes('saturday') ||
+                           btn.textContent.toLowerCase().includes('sunday')) {
+                    btn.classList.remove('btn-primary');
+                    btn.classList.add('btn-outline');
+                }
+            });
+            
+            loadClasses();
+        }
+
+        // Book class
+        function bookClass(id) {
+            const cls = classesData.find(c => c.id === id);
+            if (cls) {
+                const content = document.getElementById('bookContent');
+                content.innerHTML = `
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <i class="fas fa-calendar-check" style="font-size: 48px; color: var(--primary-color); margin-bottom: 15px;"></i>
+                        <h4 style="color: var(--text-dark); margin-bottom: 10px;">Book ${cls.name}</h4>
+                        <p style="color: var(--text-gray);">${cls.day.charAt(0).toUpperCase() + cls.day.slice(1)} at ${cls.time}</p>
+                        <p style="color: var(--text-gray);">Trainer: ${cls.trainer}</p>
+                    </div>
+                    <div style="background: var(--bg-gray); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                        <p style="color: var(--text-dark);"><strong>Duration:</strong> ${cls.duration}</p>
+                        <p style="color: var(--text-dark);"><strong>Intensity:</strong> ${cls.intensity}</p>
+                        <p style="color: var(--text-dark);"><strong>Spots Available:</strong> ${cls.capacity - cls.enrolled}</p>
+                    </div>
+                    <button class="btn btn-primary btn-block" onclick="confirmBooking(${cls.id})">Confirm Booking</button>
+                `;
+                
+                document.getElementById('bookModal').classList.add('active');
+            }
+        }
+
+        // Close book modal
+        function closeBookModal() {
+            document.getElementById('bookModal').classList.remove('active');
+        }
+
+        // Confirm booking
+        function confirmBooking(id) {
+            const cls = classesData.find(c => c.id === id);
+            if (cls && cls.enrolled < cls.capacity) {
+                cls.enrolled++;
+                closeBookModal();
+                loadClasses();
+                showNotification(`Successfully booked ${cls.name}!`, 'success');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadClasses();
+        });
+
+        // Add styles for classes
+        const style = document.createElement('style');
+        style.textContent = `
+            .classes-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 25px;
+            }
+            
+            .class-card {
+                background: var(--glass-bg);
+                border: 1px solid var(--border-color);
+                border-radius: 20px;
+                overflow: hidden;
+                transition: var(--transition);
+                backdrop-filter: blur(10px);
+            }
+            
+            .class-card:hover {
+                transform: translateY(-10px);
+                box-shadow: var(--shadow);
+            }
+            
+            .class-image {
+                height: 180px;
+                position: relative;
+            }
+            
+            .class-badge {
+                position: absolute;
+                top: 15px;
+                left: 15px;
+                background: var(--primary-color);
+                color: var(--text-light);
+                padding: 5px 15px;
+                border-radius: 20px;
+                font-size: 12px;
+                font-weight: 600;
+            }
+            
+            .class-intensity {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                color: var(--text-light);
+                padding: 5px 15px;
+                border-radius: 20px;
+                font-size: 12px;
+                font-weight: 600;
+            }
+            
+            .class-info {
+                padding: 25px;
+            }
+            
+            .class-info h3 {
+                font-size: 20px;
+                color: var(--text-light);
+                margin-bottom: 10px;
+            }
+            
+            .class-trainer {
+                color: var(--primary-color);
+                font-size: 14px;
+                margin-bottom: 15px;
+            }
+            
+            .class-details {
+                display: flex;
+                gap: 15px;
+                margin-bottom: 15px;
+                color: var(--text-gray);
+                font-size: 14px;
+            }
+            
+            .class-details span {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+            
+            .class-capacity {
+                margin-bottom: 20px;
+            }
+            
+            .capacity-bar {
+                height: 8px;
+                background: var(--border-color);
+                border-radius: 4px;
+                margin-bottom: 8px;
+                overflow: hidden;
+            }
+            
+            .capacity-fill {
+                height: 100%;
+                background: var(--gradient);
+                border-radius: 4px;
+                transition: var(--transition);
+            }
+            
+            .class-capacity span {
+                color: var(--text-gray);
+                font-size: 14px;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
